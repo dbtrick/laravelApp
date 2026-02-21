@@ -1,0 +1,1 @@
+make sure @route is included on app.blade

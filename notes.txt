@@ -6,3 +6,6 @@ Creating Model(saving data on db/creating tables for data)
 - Add columns on /migrations file
 > php artisan migrate
 - check the db to confirm that table and columns is added
+
+- if you want to edit some column file (we must avoid this, it will drop all the records from all tables)
+> php artisan migrate:fresh

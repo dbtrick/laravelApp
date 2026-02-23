@@ -1,6 +1,9 @@
 how to use route()
 - make sure @route is included on app.blade
 
+Creating Controller
+> php artisan make::controller ProductController
+
 Creating Model(saving data on db/creating tables for data)
 > php artisan make:model Product -m
 - Add columns on /migrations file

@@ -5,6 +5,15 @@ import type { BreadcrumbItem } from '@/types';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription, AlertTitle, } from '@/components/ui/alert';
 import { Bell } from 'lucide-react';
+import {
+    Table,
+    TableBody,
+    TableCaption,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table"
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -13,20 +22,30 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-interface PageProps{
+//read data
+interface Product {
+    id: number,
+    name: string,
+    price: number,
+    description: string,
+}
+
+interface PageProps {
     flash: {
         message?: string
-    }
+    },
+    products: Product[]
 }
 
 export default function Index() {
 
-    const {flash} = usePage().props as PageProps;
+    const { products, flash } = usePage().props as PageProps;
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Products" />
             <div className='m-4'>
-                <Link  href={route('products.create')}> 
+                <Link href={route('products.create')}>
                     <Button>
                         Create a Product
                     </Button>
@@ -35,14 +54,41 @@ export default function Index() {
             <div className='m-4'>
                 {flash.message && (
                     <Alert>
-                    <Bell className='h-4 w-4' />
-                    <AlertTitle>Notification!</AlertTitle>
-                    <AlertDescription>
-                       {flash.message}
-                    </AlertDescription>
-                </Alert>
+                        <Bell className='h-4 w-4' />
+                        <AlertTitle>Notification!</AlertTitle>
+                        <AlertDescription>
+                            {flash.message}
+                        </AlertDescription>
+                    </Alert>
                 )}
             </div>
+            {products.length > 0 && (
+                <div className='m-4'>
+                    <Table>
+                        <TableCaption>A list of your recent products.</TableCaption>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead className="w-[100px]">ID</TableHead>
+                                <TableHead>Name</TableHead>
+                                <TableHead>Price</TableHead>
+                                <TableHead>Description</TableHead>
+                                <TableHead className="text-center">Action</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {products.map((product) => (
+                                <TableRow>
+                                    <TableCell className="font-medium">{product.id}</TableCell>
+                                    <TableCell>{product.name}</TableCell>
+                                    <TableCell>{product.price}</TableCell>
+                                    <TableCell>{product.description}</TableCell>
+                                    <TableCell className="text-right"></TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </div>
+            )}
         </AppLayout>
     );
 }

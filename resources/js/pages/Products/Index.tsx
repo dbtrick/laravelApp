@@ -1,4 +1,4 @@
-import { Head, Link, usePage } from '@inertiajs/react';
+import { Head, Link, useForm, usePage } from '@inertiajs/react';
 
 import AppLayout from '@/layouts/app-layout';
 import type { BreadcrumbItem } from '@/types';
@@ -41,6 +41,14 @@ export default function Index() {
 
     const { products, flash } = usePage().props as PageProps;
 
+    const { processing, delete: destroy } = useForm({})
+
+    const handleDelete = (id: number, name: string) => {
+        if (confirm(`DO you want to delete a product - ${id}. ${name}`)) {
+            destroy(route("products.destroy", id));
+        }
+    }
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Products" />
@@ -82,13 +90,16 @@ export default function Index() {
                                     <TableCell>{product.name}</TableCell>
                                     <TableCell>{product.price}</TableCell>
                                     <TableCell>{product.description}</TableCell>
-                                    <TableCell className="text-right"></TableCell>
+                                    <TableCell className="text-center">
+                                        <Button disabled={processing} onClick={() => handleDelete(product.id, product.name)} className='bg-red-500 hover:bg-red-700'>Delete</Button>
+                                    </TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
                     </Table>
                 </div>
-            )}
-        </AppLayout>
+            )
+            }
+        </AppLayout >
     );
 }

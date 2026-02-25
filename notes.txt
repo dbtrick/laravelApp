@@ -12,3 +12,14 @@ Creating Model(saving data on db/creating tables for data)
 
 - if you want to edit some column file (we must avoid this, it will drop all the records from all tables)
 > php artisan migrate:fresh
+
+---------------------------
+Button that perform CRUD:
+- Create route
+- Create new function on Controller
+- Create Page
+
+
+
+
+

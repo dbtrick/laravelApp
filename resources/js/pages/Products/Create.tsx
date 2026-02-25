@@ -19,7 +19,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function Index() {
 
-    const {data, setData, post, processing, errors} = useForm({
+    const { data, setData, post, processing, errors } = useForm({
         name: '',
         price: '',
         description: '',
@@ -39,16 +39,16 @@ export default function Index() {
 
                     {/* Display error */}
 
-                    {Object.keys(errors).length > 0 &&(
+                    {Object.keys(errors).length > 0 && (
                         <Alert>
                             <CircleAlert />
                             <AlertTitle>Errors!</AlertTitle>
                             <AlertDescription>
                                 <ul>
-                                   {Object.entries(errors).map(([key, message]) => (
-                                    <li key={key}>
-                                        {message as string}
-                                    </li>
+                                    {Object.entries(errors).map(([key, message]) => (
+                                        <li key={key}>
+                                            {message as string}
+                                        </li>
                                     ))}
                                 </ul>
                             </AlertDescription>
@@ -69,7 +69,7 @@ export default function Index() {
                         <Label htmlFor='product description'>Description</Label>
                         <Textarea placeholder='Description' value={data.description} onChange={(e) => setData('description', e.target.value)}></Textarea>
                     </div>
-                    <Button type='submit'>Add Product</Button>
+                    <Button disabled={processing} type='submit'>Add Product</Button>
                 </form>
             </div>
         </AppLayout>
